@@ -7,7 +7,7 @@ const Sun = () => {
 
   return (
     <>
-      <div className="w-full h-screen relative overflow-hidden ">
+      <div id="Sun" className="w-full h-screen relative overflow-hidden ">
         <img
           src={sun}
           alt="Sun"

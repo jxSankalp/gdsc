@@ -15,7 +15,7 @@ const Mars = () => {
   const inview = useInView(main, { once: true });
 
   return (
-    <div className="w-full h-screen relative overflow-hidden">
+    <div id="Mars" className="w-full h-screen relative overflow-hidden">
       <img
         src={mars}
         alt="mars"

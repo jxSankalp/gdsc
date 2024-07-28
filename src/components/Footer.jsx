@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import eco from "../assets/footer/eco.svg";
 import arrow from "../assets/footer/Arrow.svg";
+import { Link } from "react-scroll";
 
 const Footer = () => {
   const main = useRef(null);
@@ -20,6 +21,7 @@ const Footer = () => {
   ];
 
   const [startIndex, setStartIndex] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
   const planetsToShow = 4;
 
   const handleNext = () => {
@@ -34,14 +36,22 @@ const Footer = () => {
         : []
     );
 
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log("Scroll Position:", window.scrollY); // Debugging line
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div
-      ref={main}
-    >
+    <div ref={main}>
       <motion.div
         initial={{ y: "100rem", opacity: 0 }}
         animate={{ y: inview ? "0" : "100rem", opacity: inview ? 1 : 0 }}
-        transition={{ duration: 2,  ease: "easeInOut" }}
+        transition={{ duration: 2, ease: "easeInOut" }}
         className="h-[40vh] w-[80vw] bg-[#1e1f1f] rounded-[2.5rem] flex flex-col text-white"
       >
         <div className="h-[80%] w-full">
@@ -70,7 +80,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="w-full h-[20%]  bg-transparent flex gap-1">
+        <div
+          className={`w-full h-[20%]  bg-transparent flex gap-1 ${
+            isScrolled ? "scrolled" : ""
+          }`}
+        >
           <div className="w-[25%] bg-transparent flex justify-center items-center">
             <img src={eco} alt="eco" />
             <span className="text-center text-[2rem] font-semibold font-custom">
@@ -80,7 +94,11 @@ const Footer = () => {
           <div className=" w-[50%] bg-transparent text-xl">
             <div className="flex gap-7 justify-center items-center mt-5">
               {visiblePlanets.map((planet, index) => (
-                <span key={index}>{planet}</span>
+                <li key={index} className="list-none cursor-pointer">
+                  <Link to={planet} smooth={true} offset={0} duration={500}>
+                    {planet}
+                  </Link>
+                </li>
               ))}
               <button onClick={handleNext} className="">
                 <img src={arrow} alt="button" className="h-5 w-5" />

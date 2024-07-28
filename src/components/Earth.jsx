@@ -14,7 +14,7 @@ const Earth = () => {
   const inview = useInView(main, { once: true });
 
   return (
-    <div className="w-full h-screen relative overflow-hidden">
+    <div id="Earth" className="w-full h-screen relative overflow-hidden">
       <img
         src={earth}
         alt="earth"

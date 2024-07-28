@@ -13,7 +13,7 @@ const Mercury = () => {
   const inview = useInView(main, { once: true });
 
   return (
-    <div className="w-full h-screen relative overflow-hidden ">
+    <div id="Mercury" className="w-full h-screen relative overflow-hidden ">
       <img
         src={mercury}
         alt="mercury"
